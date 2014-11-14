@@ -1,0 +1,83 @@
+#include <iostream>
+
+using namespace std;
+
+//Function Prototypes
+int getRowNum();
+int getSeatsPerRow();
+void displayOutput(int, int, int, int);
+
+int main()
+{
+
+    //Declare needed variables
+    int rowNum, seatsPerRow, seatsUsed, seatsUnused, seatsPercUsed, number = 1, rowID = 1, totalSeats = 0;
+    double totalSeatsUsed = 0, totalSeatsUnused = 0;
+
+    //Function call to get number of rows on the plane
+    rowNum = getRowNum();
+
+
+    //While loop to allow user to enter amount of seats for appropriate number of rows
+    while(number <= rowNum)
+    {
+
+        cout << "How many seats are in row " << rowID << "?" << endl;
+        cin >> seatsPerRow;
+
+        cout << "How many seats in row " << rowID << " are occupied?" << endl;
+        cin >> seatsUsed;
+
+        seatsUnused = seatsPerRow - seatsUsed;
+
+        totalSeats += seatsPerRow;
+        totalSeatsUnused += seatsUnused;
+        totalSeatsUsed += seatsUsed;
+
+        //Incrementing numbers used both for visual output and loop iteration control
+        number++; //loop iteration limit
+        rowID++; //visual value for benefit of user
+
+    }
+
+    //Determining the percentage of seats used (using a function for this calc returned a staggeringly high number for no obvious reason)
+    seatsPercUsed = (totalSeatsUsed / totalSeats) * 100;
+
+    //Function call to display all pertinent information to user
+    displayOutput(totalSeats, totalSeatsUsed, totalSeatsUnused, seatsPercUsed);
+
+
+    return 0;
+}
+
+
+//Function definition to get  number of rows on the plane
+int getRowNum()
+{
+    int rowNum;
+
+    cout << "Please enter the number of rows on the flight: " << endl;
+    cin >> rowNum;
+
+    while(rowNum < 1)
+    {
+        cout << "Row number must be greater than 0." << endl;
+        cin >> rowNum;
+    }
+
+
+    return rowNum;
+}
+
+//Function definition to print all pertinent information to console
+void displayOutput(int totalSeats, int totalSeatsUsed, int totalSeatsUnused, int seatsPercUsed)
+{
+
+    cout << "On this flight, there are:" << endl;
+    cout << totalSeats << " seats total\n"
+         << totalSeatsUsed << " seats occupied\n"
+         << totalSeatsUnused << " seats empty\n"
+         << seatsPercUsed << "% of the total seats are occupied.\n"
+         << "Have a nice day." << endl;
+
+}
