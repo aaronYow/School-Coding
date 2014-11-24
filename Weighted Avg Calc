@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+
+    string labels[7] = {"Exam 1", "Exam 2", "Exam 3", "Final Exam", "Take-Home Programming Average", "Lecture", "Lab Grade"};
+    double weights[7] = {.10, .10, .10, .10, .20, .20, .20};
+    double myScores[7];
+    double finalWeight = 0;
+    double finalGrade;
+
+    for(int i = 0;i < 7;i++)
+    {
+        cout << "Enter your score for " << labels[i] << ": ";
+        cin >> myScores[i];
+        myScores[i] = (myScores[i] / 100);
+    }
+
+    for(int i = 0;i < 7;i++)
+    {
+        finalWeight += (weights[i] * myScores[i]);
+    }
+    finalGrade = (finalWeight * 100);
+
+    cout << "Your final grade is " << finalGrade << "%" << endl;
+
+    return 0;
+}
