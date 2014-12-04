@@ -1,0 +1,185 @@
+#include <iostream>
+#include <time.h>
+#include <stdlib.h>
+
+
+using namespace std;
+
+//Function prototypes!
+void searchArr(string originalText,string searchWords);
+void randomize(int[]);
+void sortNum(int[]);
+void displayNum(int[]);
+void bubbleSort(int[]);
+
+int main()
+{
+    string originalText,searchWords;
+    char menuChoice, runAgain;
+
+    loop:
+    do //Loop to make sure the user inputs the correct characters
+        {
+        cout << "Would you like to use pattern matching (P) or sorting (S)?" << endl;
+        cin >> menuChoice;
+    }while(menuChoice != 'p' && menuChoice != 'P' && menuChoice != 's' && menuChoice != 'S');
+
+        //If/else if to determine whether to pattern match or sort
+        if(menuChoice == 'p' || menuChoice == 'P')
+        {
+            cout<<"Enter text: ";
+            cin.ignore();
+            getline(cin, originalText);
+
+            searchArr(originalText,searchWords); //Using a function because this one is much longer than the previous two commands
+        }
+
+
+        else if(menuChoice == 's' || menuChoice == 'S')
+        {
+            int number[10]={0,0,0,0,0,0,0,0,0,0};
+
+            //Function calls to get random numbers and sort them
+            randomize(number);
+            displayNum(number);
+            sortNum(number);
+            bubbleSort(number);
+        }
+
+    do //Loop to make sure the user inputs the correct characters
+    {
+        cout << "\n\nWould you like to run this code again? (Y)/(N)" << endl;
+        cin >> runAgain;
+    }while(runAgain != 'y' && runAgain != 'Y' && runAgain != 'n' && runAgain != 'N');
+
+        if(runAgain == 'y' || runAgain == 'Y')
+        {
+            goto loop; //Returns to the beginning of the code
+        }
+
+
+    return 0;
+}
+
+//Function definition to actually find the string in the char array
+void searchArr(string originalText, string searchWords)
+{
+    char textToSearch[800];
+    char searchWord[800];
+    cout << "String to search for: ";
+    cin >> searchWords;
+    int a;
+
+    for(a =0 ;a < originalText.size();a++)
+    {
+        textToSearch[a] = originalText[a];
+    }
+
+    for(a = 0;a < searchWords.size();a++)
+    {
+        searchWord[a] = searchWords[a];
+    }
+
+    int i = 0;
+    int pos = -1;
+    int found = 0;
+    int counter = 1;
+    int temporary;
+
+    while(i < 500)
+    {
+        if(textToSearch[i] == searchWord[0])
+        {
+            temporary=i;
+            for(counter = 1;counter < searchWords.size();counter++)
+            {
+                i++;
+                if(textToSearch[i] == searchWord[counter] && counter + 1 == searchWords.size())
+                {
+                    found++;
+                    pos = temporary + 1;
+                    cout << "\nString was found at position " << pos;
+                }
+            }
+        }
+        i++;
+    }
+
+   cout << "\nNumber of occurrences " << found;
+
+}
+
+//Function definition to get random numbers and get rid of repeats
+void randomize(int number[])
+{
+    int counter = 0,counter2 = 0;
+
+    srand(time(NULL));
+
+    while(counter < 10)
+    {
+        number[counter] = rand() % 100 + 1;
+
+        for(counter2 = counter - 1;counter2 > -1;counter2--)
+        {
+            if(number[counter] == number[counter2])
+            {
+                number[counter] = rand() % 100 + 1;
+                counter2=0;
+            }
+        }
+        counter++;
+    }
+}
+
+//Function definition to display the original random numbers
+void displayNum(int number[])
+{
+    int counter = 0;
+
+    cout << "\nThe initial set of numbers: ";
+
+    while(counter < 10)
+    {
+        cout << number[counter] << " ";
+        counter++;
+    }
+}
+
+//Function definition to print bubble sort
+void bubbleSort(int number[])
+{
+   int counter = 0;
+
+    cout << "\nBubble sort: ";
+
+    while(counter < 10)
+    {
+        cout << number[counter] << " ";
+        counter++;
+    }
+}
+
+//Function definition to execute bubble sort
+void sortNum(int number[])
+{
+
+    int temporary, counter = 0;
+    bool bSwap;
+
+    do
+    {
+        bSwap = false;
+        for(counter = 0;counter < 9;counter++)
+        {
+            if(number[counter] > number[counter + 1])
+            {
+                temporary = number[counter];
+                number[counter] = number[counter + 1];
+                number[counter + 1] = temporary;
+                bSwap = true;
+            }
+        }
+
+    }while(bSwap);
+}
